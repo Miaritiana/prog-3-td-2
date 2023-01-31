@@ -6,10 +6,11 @@ import app.foot.controller.rest.mapper.MatchRestMapper;
 import app.foot.controller.rest.mapper.PlayerScorerRestMapper;
 import app.foot.controller.validator.GoalValidator;
 import app.foot.service.MatchService;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @AllArgsConstructor

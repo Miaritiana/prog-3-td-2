@@ -2,6 +2,7 @@ package app.foot.controller;
 
 import app.foot.controller.rest.Player;
 import app.foot.controller.rest.mapper.PlayerRestMapper;
+import app.foot.repository.entity.PlayerEntity;
 import app.foot.service.PlayerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
