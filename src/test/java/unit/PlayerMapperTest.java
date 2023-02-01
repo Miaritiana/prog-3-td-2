@@ -2,12 +2,14 @@ package unit;
 
 import app.foot.model.Player;
 import app.foot.model.PlayerScorer;
+import app.foot.model.Team;
 import app.foot.repository.MatchRepository;
 import app.foot.repository.PlayerRepository;
 import app.foot.repository.TeamRepository;
 import app.foot.repository.entity.MatchEntity;
 import app.foot.repository.entity.PlayerEntity;
 import app.foot.repository.entity.PlayerScoreEntity;
+import app.foot.repository.entity.TeamEntity;
 import app.foot.repository.mapper.PlayerMapper;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +27,7 @@ public class PlayerMapperTest {
     MatchRepository matchRepositoryMock = mock(MatchRepository.class);
     PlayerRepository playerRepositoryMock = mock(PlayerRepository.class);
     TeamRepository teamRepositoryMock = mock(TeamRepository.class);
+
     PlayerMapper subject = new PlayerMapper(matchRepositoryMock, playerRepositoryMock, teamRepositoryMock);
 
     private static PlayerEntity entityRakoto() {
@@ -99,5 +102,22 @@ public class PlayerMapperTest {
                 .ownGoal(false)
                 .match(matchEntity1)
                 .build(), actual);
+    }
+
+    @Test
+    void player_to_entity_ok() {
+        when(playerRepositoryMock.findById(1))
+                .thenReturn(Optional.of(playerEntityRakoto(teamBarea())));
+
+        PlayerEntity actual = playerEntityRakoto(teamBarea());
+
+        Player expected = Player.builder()
+                .id(actual.getId())
+                .name(actual.getName())
+                .isGuardian(actual.isGuardian())
+                .teamName(actual.getTeam().getName())
+                .build();
+
+        assertEquals(actual,subject.toEntity(expected));
     }
 }
